@@ -11,6 +11,9 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
+from dotenv import load_dotenv
+load_dotenv()
+
 import random
 import uuid
 from datetime import datetime, timezone
@@ -491,9 +494,18 @@ psn_connect.include(psn_chat_proto, publish_manifest=True)
 psn_connect.include(peer_match_proto, publish_manifest=True)
 
 if __name__ == "__main__":
-    print("🤝 Starting PSN Connect Agent...")
-    print(f"📍 Agent address: {psn_connect.address}")
+    print("=" * 50)
+    print("🤝 PSN CONNECT - PEER SUPPORT NETWORK")
+    print("=" * 50)
+    print(f"📍 Agent Address: {psn_connect.address}")
+    print(f"🌐 Local URL: http://localhost:8003/submit")
     print("💬 Custom PSN Chat Protocol enabled")
     print("👥 Peer support matching and community coordination ready")
     print("=" * 50)
-    psn_connect.run()
+    
+    try:
+        psn_connect.run()
+    except KeyboardInterrupt:
+        print("\n🛑 PSN Connect agent stopped")
+    except Exception as e:
+        print(f"❌ Error: {e}")
